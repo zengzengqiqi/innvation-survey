@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovation and Research Capability Assessment Survey</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .survey-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 20px;
+        }
+        .survey-section {
+            margin-bottom: 30px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 5px 5px 0 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], 
+        input[type="number"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .likert-scale {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .likert-item {
+            background-color: #fff;
+            padding: 10px 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .likert-header {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .checkbox-group {
+            margin-top: 10px;
+        }
+        .checkbox-item {
+            margin-bottom: 8px;
+        }
+        .checkbox-item input {
+            margin-right: 8px;
+        }
+        .required {
+            color: red;
+        }
+        .submit-button {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .submit-button:hover {
+            background-color: #1a252f;
+        }
+        .note {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+        .language-toggle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .language-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .language-button.active {
+            background-color: #2c3e50;
+        }
+        .en-content, .ar-content {
+            display: none;
+        }
+        .en-content.active, .ar-content.active {
+            display: block;
+        }
+        .ar-content {
+            direction: rtl;
+            text-align: right;
+        }
+        .ar-content .likert-scale {
+            direction: rtl;
+        }
+        .ar-content .checkbox-item input[type="checkbox"] {
+            margin-right: 0;
+            margin-left: 8px;
+        }
+        .ar-content .checkbox-item input[type="text"] {
+            margin-left: 0;
+            margin-right: 10px;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-toggle">
+        <button id="en-toggle" class="language-button active">English</button>
+        <button id="ar-toggle" class="language-button">العربية</button>
+    </div>
+
+    <!-- English Version -->
+    <div id="en-survey" class="en-content active">
+        <div class="survey-header">
+            <h1>Innovation and Research Capability Assessment Survey</h1>
+            <p>This survey aims to evaluate practices and achievements in innovation and research across different subjects in our school</p>
+        </div>
+
+        <form id="innovation-survey-en" class="survey-form">
+            <input type="hidden" name="language" value="English">
+            
+            <!-- Teacher Basic Information -->
+            <div class="survey-section">
+                <h2 class="section-title">Teacher Basic Information</h2>
+                <div class="form-group">
+                    <label for="teacher-name-en">Teacher Name <span class="required">*</span></label>
+                    <input type="text" id="teacher-name-en" name="teacher-name" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="subject-en">Subject Taught <span class="required">*</span></label>
+                    <select id="subject-en" name="subject" required aria-required="true">
+                        <option value="">Please select a subject</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="biology">Biology</option>
+                        <option value="computer-science">Computer Science</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="english">English</option>
+                        <option value="history">History</option>
+                        <option value="geography">Geography</option>
+                        <option value="politics">Politics</option>
+                        <option value="arts">Arts</option>
+                        <option value="music">Music</option>
+                        <option value="physical-education">Physical Education</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group other-subject-group" style="display: none;">
+                    <label for="other-subject-en">Please specify the subject</label>
+                    <input type="text" id="other-subject-en" name="other-subject">
+                </div>
+                <div class="form-group">
+                    <label for="teaching-years-en">Years of Teaching Experience</label>
+                    <input type="number" id="teaching-years-en" name="teaching-years" min="0" max="50">
+                </div>
+                <div class="form-group">
+                    <label for="email-en">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email-en" name="email" required aria-required="true">
+                </div>
+            </div>
+
+            <!-- Part 1: Technology Integration in Teaching -->
+            <div class="survey-section">
+                <h2 class="section-title">I. Technology Integration in Teaching</h2>
+                <div class="form-group">
+                    <label>1. How frequently do you use advanced technologies (such as robotics, 3D printing, virtual reality, etc.) in your teaching? <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-1-en" name="tech-frequency" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="tech-freq-1-en">Never</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-2-en" name="tech-frequency" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="tech-freq-2-en">Rarely</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-3-en" name="tech-frequency" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="tech-freq-3-en">Sometimes</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-4-en" name="tech-frequency" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="tech-freq-4-en">Often</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-5-en" name="tech-frequency" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="tech-freq-5-en">Always</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>2. How comfortable are you with implementing new technologies? <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-1-en" name="tech-comfort" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="tech-comfort-1-en">Very uncomfortable</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-2-en" name="tech-comfort" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="tech-comfort-2-en">Somewhat uncomfortable</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-3-en" name="tech-comfort" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="tech-comfort-3-en">Neutral</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-4-en" name="tech-comfort" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="tech-comfort-4-en">Somewhat comfortable</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-5-en" name="tech-comfort" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="tech-comfort-5-en">Very comfortable</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tech-percent-en">3. What percentage of your lessons incorporate technological tools? <span class="required">*</span></label>
+                    <input type="number" id="tech-percent-en" name="tech-percent" min="0" max="100" placeholder="Enter percentage (0-100)" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label>4. Which technologies have you integrated into your teaching? (Select all that apply) <span class="required">*</span></label>
+                    <div class="checkbox-group" id="tech-checkbox-group-en">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-3d-en" name="tech-used" value="3d-printing">
+                            <label for="tech-3d-en">3D Printing</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-vr-en" name="tech-used" value="vr">
+                            <label for="tech-vr-en">Virtual Reality (VR)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-ar-en" name="tech-used" value="ar">
+                            <label for="tech-ar-en">Augmented Reality (AR)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-robot-en" name="tech-used" value="robotics">
+                            <label for="tech-robot-en">Robotics</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-ai-en" name="tech-used" value="ai">
+                            <label for="tech-ai-en">AI Tools</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-coding-en" name="tech-used" value="coding">
+                            <label for="tech-coding-en">Programming/Coding</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-digital-en" name="tech-used" value="digital-fab">
+                            <label for="tech-digital-en">Digital Fabrication</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-other-en" name="tech-used" value="other">
+                            <label for="tech-other-en">Other</label>
+                            <input type="text" id="tech-other-text-en" name="tech-other-text" placeholder="Please specify" style="width: 50%; display: inline-block; margin-left: 10px;">
+                        </div>
+                        <div id="tech-error-en" class="error-message" style="display: none;">Please select at least one option</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 2: Research Facilitation -->
+            <div class="survey-section">
+                <h2 class="section-title">II. Research Facilitation</h2>
+                <div class="form-group">
+                    <label for="research-projects-en">1. How many student research projects did you supervise in the past academic year? <span class="required">*</span></label>
+                    <input type="number" id="research-projects-en" name="research-projects" min="0" max="100" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label>2. Which methods do you use to teach research skills? (Select all that apply) <span class="required">*</span></label>
+                    <div class="checkbox-group" id="research-checkbox-group-en">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-1-en" name="research-methods" value="literature-review">
+                            <label for="research-method-1-en">Literature Review Training</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-2-en" name="research-methods" value="data-collection">
+                            <label for="research-method-2-en">Data Collection Methods</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-3-en" name="research-methods" value="data-analysis">
+                            <label for="research-method-3-en">Data Analysis Techniques</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-4-en" name="research-methods" value="experimental-design">
+                            <label for="research-method-4-en">Experimental Design</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-5-en" name="research-methods" value="research-ethics">
+                            <label for="research-method-5-en">Research Ethics</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-6-en" name="research-methods" value="presentation-skills">
+                            <label for="research-method-6-en">Research Presentation Skills</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-7-en" name="research-methods" value="other">
+                            <label for="research-method-7-en">Other</label>
+                            <input type="text" id="research-other-text-en" name="research-other-text" placeholder="Please specify" style="width: 50%; display: inline-block; margin-left: 10px;">
+                        </div>
+                        <div id="research-error-en" class="error-message" style="display: none;">Please select at least one option</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>3. To what extent do your courses include teaching research methods? <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-1-en" name="research-level" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="research-level-1-en">Not at all</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-2-en" name="research-level" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="research-level-2-en">Minimally</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-3-en" name="research-level" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="research-level-3-en">Moderately</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-4-en" name="research-level" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="research-level-4-en">Substantially</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-5-en" name="research-level" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="research-level-5-en">Extensively</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 3: Innovation Enablement -->
+            <div class="survey-section">
+                <h2 class="section-title">III. Innovation Enablement</h2>
+                <div class="form-group">
+                    <label>1. To what extent have you implemented problem-based learning approaches that require students to develop innovative solutions? <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-1-en" name="innovation-pbl" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="innovation-pbl-1-en">Not implemented</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-2-en" name="innovation-pbl" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="innovation-pbl-2-en">Beginning implementation</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-3-en" name="innovation-pbl" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="innovation-pbl-3-en">Partially implemented</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-4-en" name="innovation-pbl" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="innovation-pbl-4-en">Substantially implemented</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-5-en" name="innovation-pbl" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="innovation-pbl-5-en">Fully implemented</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>2. Which strategies do you use to foster innovative thinking? (Select all that apply) <span class="required">*</span></label>
+                    <div class="checkbox-group" id="innovation-checkbox-group-en">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-1-en" name="innovation-strategies" value="brainstorming">
+                            <label for="innovation-strategy-1-en">Brainstorming</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-2-en" name="innovation-strategies" value="design-thinking">
+                            <label for="innovation-strategy-2-en">Design Thinking</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-3-en" name="innovation-strategies" value="prototyping">
+                            <label for="innovation-strategy-3-en">Prototyping</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-4-en" name="innovation-strategies" value="real-world-problems">
+                            <label for="innovation-strategy-4-en">Real-World Problem Solving</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-5-en" name="innovation-strategies" value="creativity-exercises">
+                            <label for="innovation-strategy-5-en">Creativity Exercises</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-6-en" name="innovation-strategies" value="peer-feedback">
+                            <label for="innovation-strategy-6-en">Peer Feedback</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-7-en" name="innovation-strategies" value="other">
+                            <label for="innovation-strategy-7-en">Other</label>
+                            <input type="text" id="innovation-other-text-en" name="innovation-other-text" placeholder="Please specify" style="width: 50%; display: inline-block; margin-left: 10px;">
+                        </div>
+                        <div id="innovation-error-en" class="error-message" style="display: none;">Please select at least one option</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>3. How much support do you provide for student-led innovation projects? <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-1-en" name="innovation-support" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="innovation-support-1-en">No support</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-2-en" name="innovation-support" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="innovation-support-2-en">Minimal support</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-3-en" name="innovation-support" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="innovation-support-3-en">Moderate support</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-4-en" name="innovation-support" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="innovation-support-4-en">Substantial support</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-5-en" name="innovation-support" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="innovation-support-5-en">Comprehensive support</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">Submit Survey</button>
+            <p class="note">Thank you for taking the time to complete this survey. Your input will be valuable in assessing and enhancing our school's innovation and research capabilities.</p>
+        </form>
+    </div>
+
+    <!-- Arabic Version -->
+    <div id="ar-survey" class="ar-content">
+        <div class="survey-header">
+            <h1>استبيان تقييم قدرات الابتكار والبحث</h1>
+            <p>يهدف هذا الاستبيان إلى تقييم الممارسات والإنجازات في مجال الابتكار والبحث عبر المواد المختلفة في مدرستنا</p>
+        </div>
+
+        <form id="innovation-survey-ar" class="survey-form">
+            <input type="hidden" name="language" value="Arabic">
+            
+            <!-- Teacher Basic Information -->
+            <div class="survey-section">
+                <h2 class="section-title">معلومات المعلم الأساسية</h2>
+                <div class="form-group">
+                    <label for="teacher-name-ar">اسم المعلم <span class="required">*</span></label>
+                    <input type="text" id="teacher-name-ar" name="teacher-name" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="subject-ar">المادة التي تُدرّس <span class="required">*</span></label>
+                    <select id="subject-ar" name="subject" required aria-required="true">
+                        <option value="">الرجاء اختيار مادة</option>
+                        <option value="mathematics">الرياضيات</option>
+                        <option value="physics">الفيزياء</option>
+                        <option value="chemistry">الكيمياء</option>
+                        <option value="biology">الأحياء</option>
+                        <option value="computer-science">علوم الكمبيوتر</option>
+                        <option value="chinese">اللغة الصينية</option>
+                        <option value="english">اللغة الإنجليزية</option>
+                        <option value="history">التاريخ</option>
+                        <option value="geography">الجغرافيا</option>
+                        <option value="politics">السياسة</option>
+                        <option value="arts">الفنون</option>
+                        <option value="music">الموسيقى</option>
+                        <option value="physical-education">التربية البدنية</option>
+                        <option value="other">أخرى</option>
+                    </select>
+                </div>
+                <div class="form-group other-subject-group" style="display: none;">
+                    <label for="other-subject-ar">يرجى تحديد المادة</label>
+                    <input type="text" id="other-subject-ar" name="other-subject">
+                </div>
+                <div class="form-group">
+                    <label for="teaching-years-ar">سنوات الخبرة في التدريس</label>
+                    <input type="number" id="teaching-years-ar" name="teaching-years" min="0" max="50">
+                </div>
+                <div class="form-group">
+                    <label for="email-ar">البريد الإلكتروني <span class="required">*</span></label>
+                    <input type="email" id="email-ar" name="email" required aria-required="true">
+                </div>
+            </div>
+
+            <!-- Part 1: Technology Integration in Teaching -->
+            <div class="survey-section">
+                <h2 class="section-title">أولاً. دمج التكنولوجيا في التدريس</h2>
+                <div class="form-group">
+                    <label>1. ما مدى تكرار استخدامك للتقنيات المتقدمة (مثل الروبوتات والطباعة ثلاثية الأبعاد والواقع الافتراضي وما إلى ذلك) في التدريس؟ <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-1-ar" name="tech-frequency" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="tech-freq-1-ar">أبداً</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-2-ar" name="tech-frequency" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="tech-freq-2-ar">نادراً</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-3-ar" name="tech-frequency" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="tech-freq-3-ar">أحياناً</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-4-ar" name="tech-frequency" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="tech-freq-4-ar">غالباً</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-freq-5-ar" name="tech-frequency" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="tech-freq-5-ar">دائماً</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>2. ما مدى ارتياحك في تنفيذ التقنيات الجديدة؟ <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-1-ar" name="tech-comfort" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="tech-comfort-1-ar">غير مرتاح للغاية</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-2-ar" name="tech-comfort" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="tech-comfort-2-ar">غير مرتاح إلى حد ما</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-3-ar" name="tech-comfort" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="tech-comfort-3-ar">محايد</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-4-ar" name="tech-comfort" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="tech-comfort-4-ar">مرتاح إلى حد ما</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="tech-comfort-5-ar" name="tech-comfort" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="tech-comfort-5-ar">مرتاح للغاية</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tech-percent-ar">3. ما هي النسبة المئوية لدروسك التي تدمج الأدوات التكنولوجية؟ <span class="required">*</span></label>
+                    <input type="number" id="tech-percent-ar" name="tech-percent" min="0" max="100" placeholder="أدخل النسبة المئوية (0-100)" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label>4. ما هي التقنيات التي قمت بدمجها في التدريس؟ (اختر كل ما ينطبق) <span class="required">*</span></label>
+                    <div class="checkbox-group" id="tech-checkbox-group-ar">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-3d-ar" name="tech-used" value="3d-printing">
+                            <label for="tech-3d-ar">الطباعة ثلاثية الأبعاد</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-vr-ar" name="tech-used" value="vr">
+                            <label for="tech-vr-ar">الواقع الافتراضي (VR)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-ar-ar" name="tech-used" value="ar">
+                            <label for="tech-ar-ar">الواقع المعزز (AR)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-robot-ar" name="tech-used" value="robotics">
+                            <label for="tech-robot-ar">الروبوتات</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-ai-ar" name="tech-used" value="ai">
+                            <label for="tech-ai-ar">أدوات الذكاء الاصطناعي</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-coding-ar" name="tech-used" value="coding">
+                            <label for="tech-coding-ar">البرمجة</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-digital-ar" name="tech-used" value="digital-fab">
+                            <label for="tech-digital-ar">التصنيع الرقمي</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tech-other-ar" name="tech-used" value="other">
+                            <label for="tech-other-ar">أخرى</label>
+                            <input type="text" id="tech-other-text-ar" name="tech-other-text" placeholder="يرجى التحديد" style="width: 50%; display: inline-block; margin-right: 10px;">
+                        </div>
+                        <div id="tech-error-ar" class="error-message" style="display: none;">الرجاء تحديد خيار واحد على الأقل</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 2: Research Facilitation -->
+            <div class="survey-section">
+                <h2 class="section-title">ثانياً. تسهيل البحث</h2>
+                <div class="form-group">
+                    <label for="research-projects-ar">1. كم عدد مشاريع البحث الطلابية التي أشرفت عليها في العام الدراسي الماضي؟ <span class="required">*</span></label>
+                    <input type="number" id="research-projects-ar" name="research-projects" min="0" max="100" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label>2. ما هي الطرق التي تستخدمها لتعليم مهارات البحث؟ (اختر كل ما ينطبق) <span class="required">*</span></label>
+                    <div class="checkbox-group" id="research-checkbox-group-ar">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-1-ar" name="research-methods" value="literature-review">
+                            <label for="research-method-1-ar">تدريب على مراجعة الأدبيات</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-2-ar" name="research-methods" value="data-collection">
+                            <label for="research-method-2-ar">طرق جمع البيانات</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-3-ar" name="research-methods" value="data-analysis">
+                            <label for="research-method-3-ar">تقنيات تحليل البيانات</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-4-ar" name="research-methods" value="experimental-design">
+                            <label for="research-method-4-ar">تصميم التجارب</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-5-ar" name="research-methods" value="research-ethics">
+                            <label for="research-method-5-ar">أخلاقيات البحث</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-6-ar" name="research-methods" value="presentation-skills">
+                            <label for="research-method-6-ar">مهارات عرض البحث</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="research-method-7-ar" name="research-methods" value="other">
+                            <label for="research-method-7-ar">أخرى</label>
+                            <input type="text" id="research-other-text-ar" name="research-other-text" placeholder="يرجى التحديد" style="width: 50%; display: inline-block; margin-right: 10px;">
+                        </div>
+                        <div id="research-error-ar" class="error-message" style="display: none;">الرجاء تحديد خيار واحد على الأقل</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>3. إلى أي مدى تتضمن دوراتك تدريس طرق البحث؟ <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-1-ar" name="research-level" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="research-level-1-ar">لا على الإطلاق</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-2-ar" name="research-level" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="research-level-2-ar">بشكل ضئيل</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-3-ar" name="research-level" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="research-level-3-ar">بشكل معتدل</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-4-ar" name="research-level" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="research-level-4-ar">بشكل كبير</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="research-level-5-ar" name="research-level" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="research-level-5-ar">بشكل موسع</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 3: Innovation Enablement -->
+            <div class="survey-section">
+                <h2 class="section-title">ثالثاً. تمكين الابتكار</h2>
+                <div class="form-group">
+                    <label>1. إلى أي مدى قمت بتنفيذ مناهج التعلم القائمة على المشاكل التي تتطلب من الطلاب تطوير حلول مبتكرة؟ <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-1-ar" name="innovation-pbl" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="innovation-pbl-1-ar">لم يتم التنفيذ</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-2-ar" name="innovation-pbl" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="innovation-pbl-2-ar">بداية التنفيذ</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-3-ar" name="innovation-pbl" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="innovation-pbl-3-ar">تم التنفيذ جزئياً</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-4-ar" name="innovation-pbl" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="innovation-pbl-4-ar">تم التنفيذ بشكل كبير</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-pbl-5-ar" name="innovation-pbl" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="innovation-pbl-5-ar">تم التنفيذ بالكامل</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>2. ما هي الاستراتيجيات التي تستخدمها لتعزيز التفكير المبتكر؟ (اختر كل ما ينطبق) <span class="required">*</span></label>
+                    <div class="checkbox-group" id="innovation-checkbox-group-ar">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-1-ar" name="innovation-strategies" value="brainstorming">
+                            <label for="innovation-strategy-1-ar">العصف الذهني</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-2-ar" name="innovation-strategies" value="design-thinking">
+                            <label for="innovation-strategy-2-ar">التفكير التصميمي</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-3-ar" name="innovation-strategies" value="prototyping">
+                            <label for="innovation-strategy-3-ar">النماذج الأولية</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-4-ar" name="innovation-strategies" value="real-world-problems">
+                            <label for="innovation-strategy-4-ar">حل المشكلات الواقعية</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-5-ar" name="innovation-strategies" value="creativity-exercises">
+                            <label for="innovation-strategy-5-ar">تمارين الإبداع</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-6-ar" name="innovation-strategies" value="peer-feedback">
+                            <label for="innovation-strategy-6-ar">ملاحظات الأقران</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="innovation-strategy-7-ar" name="innovation-strategies" value="other">
+                            <label for="innovation-strategy-7-ar">أخرى</label>
+                            <input type="text" id="innovation-other-text-ar" name="innovation-other-text" placeholder="يرجى التحديد" style="width: 50%; display: inline-block; margin-right: 10px;">
+                        </div>
+                        <div id="innovation-error-ar" class="error-message" style="display: none;">الرجاء تحديد خيار واحد على الأقل</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>3. ما مقدار الدعم الذي تقدمه لمشاريع الابتكار التي يقودها الطلاب؟ <span class="required">*</span></label>
+                    <div class="likert-scale">
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-1-ar" name="innovation-support" value="1" required aria-required="true">
+                            <div class="likert-header">1</div>
+                            <label for="innovation-support-1-ar">لا يوجد دعم</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-2-ar" name="innovation-support" value="2">
+                            <div class="likert-header">2</div>
+                            <label for="innovation-support-2-ar">دعم ضئيل</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-3-ar" name="innovation-support" value="3">
+                            <div class="likert-header">3</div>
+                            <label for="innovation-support-3-ar">دعم معتدل</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-4-ar" name="innovation-support" value="4">
+                            <div class="likert-header">4</div>
+                            <label for="innovation-support-4-ar">دعم كبير</label>
+                        </div>
+                        <div class="likert-item">
+                            <input type="radio" id="innovation-support-5-ar" name="innovation-support" value="5">
+                            <div class="likert-header">5</div>
+                            <label for="innovation-support-5-ar">دعم شامل</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">إرسال الاستبيان</button>
+            <p class="note">شكراً لك على أخذ الوقت لإكمال هذا الاستبيان. ستكون مدخلاتك قيمة في تقييم وتعزيز قدرات الابتكار والبحث في مدرستنا.</p>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        // Language toggle functionality
+        document.getElementById('en-toggle').addEventListener('click', function() {
+            document.getElementById('en-survey').classList.add('active');
+            document.getElementById('ar-survey').classList.remove('active');
+            document.getElementById('en-toggle').classList.add('active');
+            document.getElementById('ar-toggle').classList.remove('active');
+        });
+        document.getElementById('ar-toggle').addEventListener('click', function() {
+            document.getElementById('ar-survey').classList.add('active');
+            document.getElementById('en-survey').classList.remove('active');
+            document.getElementById('ar-toggle').classList.add('active');
+            document.getElementById('en-toggle').classList.remove('active');
+        });
+
+        // Show/hide other subject field
+        document.getElementById('subject-en').addEventListener('change', function() {
+            const otherSubjectGroup = document.querySelector('#en-survey .other-subject-group');
+            otherSubjectGroup.style.display = this.value === 'other' ? 'block' : 'none';
+        });
+        document.getElementById('subject-ar').addEventListener('change', function() {
+            const otherSubjectGroup = document.querySelector('#ar-survey .other-subject-group');
+            otherSubjectGroup.style.display = this.value === 'other' ? 'block' : 'none';
+        });
+
+        // Checkbox validation function
+        function validateCheckboxGroup(formId, groupId, errorId) {
+            const form = document.getElementById(formId);
+            const checkboxes = form.querySelectorAll(`#${groupId} input[type="checkbox"]`);
+            const error = document.getElementById(errorId);
+            let isValid = false;
+
+            form.addEventListener('submit', function(e) {
+                isValid = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                if (!isValid) {
+                    e.preventDefault();
+                    error.style.display = 'block';
+                } else {
+                    error.style.display = 'none';
+                }
+            });
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    isValid = Array.from(checkboxes).some(cb => cb.checked);
+                    error.style.display = isValid ? 'none' : 'block';
+                });
+            });
+        }
+
+        // Apply checkbox validation
+        validateCheckboxGroup('innovation-survey-en', 'tech-checkbox-group-en', 'tech-error-en');
+        validateCheckboxGroup('innovation-survey-en', 'research-checkbox-group-en', 'research-error-en');
+        validateCheckboxGroup('innovation-survey-en', 'innovation-checkbox-group-en', 'innovation-error-en');
+        validateCheckboxGroup('innovation-survey-ar', 'tech-checkbox-group-ar', 'tech-error-ar');
+        validateCheckboxGroup('innovation-survey-ar', 'research-checkbox-group-ar', 'research-error-ar');
+        validateCheckboxGroup('innovation-survey-ar', 'innovation-checkbox-group-ar', 'innovation-error-ar');
+
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("aBJiay4TJYlBwmw9R"); // Replace with your EmailJS User ID
+        })();
+
+        // Form submission handler
+        function handleFormSubmission(formId, lang) {
+            const form = document.getElementById(formId);
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+                const formObject = {};
+                formData.forEach((value, key) => { formObject[key] = value });
+                formObject['timestamp'] = new Date().toISOString();
+
+                // Send to Google Apps Script
+                fetch('https://script.google.com/macros/s/AKfycbyUGxkq0XhIkk9Sod4T3ZhY1o5CtbzS8zD1HYAIVZv4ISZc39xN4M2ujvT-XNwS43Yw/exec', {
+                    method: 'POST',
+                    body: JSON.stringify(formObject),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    sendEmailNotification(formObject, lang);
+                })
+                .catch(error => {
+                    console.error('Error sending to spreadsheet:', error);
+                    sendEmailNotification(formObject, lang); // Proceed with email even if spreadsheet fails
+                });
+            });
+        }
+
+        // Email notification function
+        function sendEmailNotification(formObject, lang) {
+            const templateParams = {
+                to_email: 'Qi.Zeng@Ese.gov.ae',
+                from_name: formObject['teacher-name'] || 'Survey Respondent',
+                subject: `Innovation and Research Survey Submission (${lang === 'en' ? 'English' : 'Arabic'})`,
+                message: JSON.stringify(formObject, null, 2)
+            };
+
+            emailjs.send('service_uqv0eqb', 'template_5m60t4o', templateParams)
+                .then(response => {
+                    console.log('SUCCESS!', response.status, response.text);
+                    alert(lang === 'en' ?
+                        'Thank you for submitting the survey. Your responses have been recorded.' :
+                        'شكراً لإرسال الاستبيان. تم تسجيل إجاباتك.');
+                }, error => {
+                    console.log('FAILED...', error);
+                    alert(lang === 'en' ?
+                        'There was an error submitting your survey. Please try again or contact the administrator.' :
+                        'حدث خطأ أثناء إرسال الاستبيان. يرجى المحاولة مرة أخرى أو الاتصال بالمسؤول.');
+                });
+        }
+
+        // Initialize form handlers
+        handleFormSubmission('innovation-survey-en', 'en');
+        handleFormSubmission('innovation-survey-ar', 'ar');
+    </script>
+</body>
+</html>
